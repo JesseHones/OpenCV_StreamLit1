@@ -6,6 +6,12 @@ from PIL import Image, UnidentifiedImageError
 import requests
 from io import BytesIO
 
+import zipfile
+
+zipfile.ZipFile.filename = "DenseNet_121.zip.001"
+zipfile.ZipFile.extractall()
+
+
 # Create application title and file uploader widget.
 st.title("OpenCV Deep Learning based Image Classification")
 
