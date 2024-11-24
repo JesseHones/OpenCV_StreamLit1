@@ -7,20 +7,20 @@ import numpy as np
 from PIL import Image, UnidentifiedImageError
 import requests
 from io import BytesIO
+
+
 import os
-
-
 from zipfile import ZipFile
 
+
+
+#combined the source code from the following links to merge a multi-part zip file
 #merge zip files together  url:https://princekfrancis.medium.com/concatenate-large-csv-files-using-python-7e155e70f643
+#https://stackoverflow.com/questions/26680579/merging-big-binary-files-using-python-3
+#https://stackoverflow.com/questions/6591931/getting-file-size-in-python
+
 csv_files = ['DenseNet_121.zip.001', 'DenseNet_121.zip.002', 'DenseNet_121.zip.003']
 target_file_name = 'DenseNet_121.zip';
-
-#https://stackoverflow.com/questions/26680579/merging-big-binary-files-using-python-3
-#os.stat('C:\\Python27\\Lib\\genericpath.py').st_size
-BLOCKSIZE = 4096  # typical, I believe
-BLOCKS = 1024  # somewhat arbitrary
-chunk = BLOCKS * BLOCKSIZE
 with open(target_file_name, 'wb') as outfile:
     for source_file in csv_files[0:]:
         with open(source_file, "rb") as infile:
@@ -28,6 +28,7 @@ with open(target_file_name, 'wb') as outfile:
             outfile.write(infile.read(chunk))
     outfile.close()
 
+#https://www.geeksforgeeks.org/unzipping-files-in-python/
 with ZipFile( "DenseNet_121.zip", 'r') as z:
     z.extractall(path=None, members=None, pwd=None)
 z.close()
@@ -35,8 +36,10 @@ z.close()
 # Create application title and file uploader widget.
 st.title("OpenCV Deep Learning based Image Classification")
 
-
+#JH
+#removed argument that was not recognized by my compiler ... perhaps a different build worked
 @st.cache_resource()
+
 def load_model():
     """Loads the DNN model."""
 
