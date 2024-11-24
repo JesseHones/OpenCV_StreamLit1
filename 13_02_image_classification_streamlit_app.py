@@ -1,3 +1,5 @@
+from fileinput import filename
+
 from requests.models import MissingSchema
 import streamlit as st
 import cv2
@@ -5,12 +7,30 @@ import numpy as np
 from PIL import Image, UnidentifiedImageError
 import requests
 from io import BytesIO
+import os
 
-import zipfile
 
-zipfile.ZipFile.filename = "DenseNet_121.zip.001"
-zipfile.ZipFile.extractall()
+from zipfile import ZipFile
 
+#merge zip files together  url:https://princekfrancis.medium.com/concatenate-large-csv-files-using-python-7e155e70f643
+csv_files = ['DenseNet_121.zip.001', 'DenseNet_121.zip.002', 'DenseNet_121.zip.003']
+target_file_name = 'DenseNet_121.zip';
+
+#https://stackoverflow.com/questions/26680579/merging-big-binary-files-using-python-3
+#os.stat('C:\\Python27\\Lib\\genericpath.py').st_size
+BLOCKSIZE = 4096  # typical, I believe
+BLOCKS = 1024  # somewhat arbitrary
+chunk = BLOCKS * BLOCKSIZE
+with open(target_file_name, 'wb') as outfile:
+    for source_file in csv_files[0:]:
+        with open(source_file, "rb") as infile:
+            chunk = os.stat(source_file).st_size
+            outfile.write(infile.read(chunk))
+    outfile.close()
+
+with ZipFile( "DenseNet_121.zip", 'r') as z:
+    z.extractall(path=None, members=None, pwd=None)
+z.close()
 
 # Create application title and file uploader widget.
 st.title("OpenCV Deep Learning based Image Classification")
