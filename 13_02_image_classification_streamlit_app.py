@@ -19,19 +19,19 @@ from zipfile import ZipFile
 #https://stackoverflow.com/questions/26680579/merging-big-binary-files-using-python-3
 #https://stackoverflow.com/questions/6591931/getting-file-size-in-python
 
-csv_files = ['DenseNet_121.zip.001', 'DenseNet_121.zip.002', 'DenseNet_121.zip.003']
-target_file_name = 'DenseNet_121.zip';
-with open(target_file_name, 'wb') as outfile:
-    for source_file in csv_files[0:]:
-        with open(source_file, "rb") as infile:
-            chunk = os.stat(source_file).st_size
-            outfile.write(infile.read(chunk))
-    outfile.close()
+#csv_files = ['DenseNet_121.zip.001', 'DenseNet_121.zip.002', 'DenseNet_121.zip.003']
+#target_file_name = 'DenseNet_121.zip';
+#with open(target_file_name, 'wb') as outfile:
+#    for source_file in csv_files[0:]:
+#        with open(source_file, "rb") as infile:
+#            chunk = os.stat(source_file).st_size
+#            outfile.write(infile.read(chunk))
+#    outfile.close()
 
 #https://www.geeksforgeeks.org/unzipping-files-in-python/
-with ZipFile( "DenseNet_121.zip", 'r') as z:
-    z.extractall(path=None, members=None, pwd=None)
-z.close()
+#with ZipFile( "DenseNet_121.zip", 'r') as z:
+#    z.extractall(path=None, members=None, pwd=None)
+#z.close()
 
 # Create application title and file uploader widget.
 st.title("OpenCV Deep Learning based Image Classification")
